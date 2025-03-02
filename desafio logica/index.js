@@ -7,8 +7,7 @@ function classificarHeroi(nome, xp) {
     let nivel = "";
 
     if(xp<100){
-        nivel= "iniciante"
-    }
+        nivel= "iniciante";}
     else if (xp <= 1000) {
         nivel = "Ferro";
     } else if (xp <= 2000) {
