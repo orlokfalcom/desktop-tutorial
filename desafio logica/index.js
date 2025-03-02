@@ -1,10 +1,15 @@
-// Classificador de nível de Herói
+// Classificador de nível de Herói (versão para Node.js)
+
+const readline = require('readline');
 
 // Função para classificar o nível do herói
 function classificarHeroi(nome, xp) {
     let nivel = "";
 
-    if (xp < 1000) {
+    if(xp<100){
+        nivel= "iniciante"
+    }
+    else if (xp <= 1000) {
         nivel = "Ferro";
     } else if (xp <= 2000) {
         nivel = "Bronze";
@@ -25,13 +30,41 @@ function classificarHeroi(nome, xp) {
     console.log(`O Herói de nome ${nome} está no nível de ${nivel}`);
 }
 
-// Exemplo de uso
-const nomeHeroi = prompt("Digite o nome do herói:");
-let xpHeroi = parseInt(prompt("Digite a quantidade de XP do herói:"), 10);
+// Programa principal para entrada de dados e exibição da classificação
+function iniciarClassificacao() {
+    const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout
+    });
 
-// Validação de entrada
-while (isNaN(xpHeroi) || xpHeroi < 0) {
-    xpHeroi = parseInt(prompt("XP inválido. Digite um número válido para o XP:"), 10);
+    function perguntar() {
+        rl.question("Digite o nome do herói: ", (nomeHeroi) => {
+            rl.question("Digite a quantidade de XP do herói: ", (xp) => {
+                let xpHeroi = parseInt(xp, 10);
+
+                // Validação de entrada
+                if (isNaN(xpHeroi) || xpHeroi < 0) {
+                    console.log("XP inválido. Por favor, insira um número válido.");
+                    perguntar();
+                    return;
+                }
+
+                classificarHeroi(nomeHeroi, xpHeroi);
+
+                rl.question("Deseja inserir outro herói? (s/n): ", (resposta) => {
+                    if (resposta.toLowerCase() === 's') {
+                        perguntar();
+                    } else {
+                        console.log("Encerrando o programa...");
+                        rl.close();
+                    }
+                });
+            });
+        });
+    }
+
+    perguntar();
 }
 
-classificarHeroi(nomeHeroi, xpHeroi);
+// Iniciar o programa
+iniciarClassificacao();
