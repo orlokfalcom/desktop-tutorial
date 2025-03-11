@@ -2,27 +2,28 @@ const readline = require('readline');
 
 // Função para calcular o saldo e o nível do herói
 function calcularSaldo(vitorias, derrotas) {
-    // Se o saldo for negativo, atribui "< 0"
     let saldoVitorias = vitorias - derrotas;
     let nivel;
 
-    // Determinando o nível com base nas vitórias (em ordem crescente)
+    // Determinando o nível com base no saldo de vitórias
     if (saldoVitorias < 0) {
         nivel = "Sem classificação";
-    } else if (saldoVitorias >= 1) {
-        nivel = "Ferro";
-    } else if (saldoVitorias >= 20) {
-        nivel = "Bronze";
-    } else if (saldoVitorias >= 50) {
-        nivel = "Prata";
-    } else if (saldoVitorias >= 80) {
-        nivel = "Ouro";
-    } else if (saldoVitorias >= 90) {
-        nivel = "Diamante";
     } else if (saldoVitorias >= 100) {
-        nivel = "Lendário";
-    } else {
         nivel = "Imortal";
+    } else if (saldoVitorias >= 90 && saldoVitorias < 100) {
+        nivel = "Lendário";
+    } else if (saldoVitorias >= 80 && saldoVitorias < 90) {
+        nivel = "Diamante";
+    } else if (saldoVitorias >= 50 && saldoVitorias < 80) {
+        nivel = "Ouro";
+    } else if (saldoVitorias >= 20 && saldoVitorias < 50) {
+        nivel = "Prata";
+    } else if (saldoVitorias >= 10 && saldoVitorias < 20) {
+        nivel = "Bronze";
+    } else if (saldoVitorias >= 1 && saldoVitorias < 10) {
+        nivel = "Ferro";
+    } else {
+        nivel = "Sem classificação";
     }
 
     console.log(`O Herói tem um saldo de ${saldoVitorias} vitórias e está no nível ${nivel}.`);
